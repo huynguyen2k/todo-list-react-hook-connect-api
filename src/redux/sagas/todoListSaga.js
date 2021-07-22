@@ -9,7 +9,7 @@ import {
 	HIDE_LOADING,
 	REJECT_TASK_SAGA,
 } from "../constants/ActionType"
-import TodoListService from "../../services/TodoListService"
+import { todoListApi } from "../../api/todoListApi"
 
 function* getTaskListApiAction() {
 	yield put({
@@ -19,7 +19,7 @@ function* getTaskListApiAction() {
 	yield delay(2000)
 
 	try {
-		const { data } = yield call(TodoListService.getTaskListApi)
+		const data = yield call(todoListApi.getTaskListApi)
 
 		yield put({
 			type: GET_TASK_LIST_API,
@@ -36,7 +36,7 @@ function* getTaskListApiAction() {
 
 function* addTaskApiAction(action) {
 	try {
-		yield call(TodoListService.addTaskApi, action.newTask)
+		yield call(todoListApi.addTaskApi, action.newTask)
 
 		yield put({
 			type: GET_TASK_LIST_SAGA,
@@ -48,7 +48,7 @@ function* addTaskApiAction(action) {
 
 function* deleteTaskApiAction(action) {
 	try {
-		yield call(TodoListService.deleteTaskApi, action.taskName)
+		yield call(todoListApi.deleteTaskApi, action.taskName)
 
 		yield put({
 			type: GET_TASK_LIST_SAGA,
@@ -60,7 +60,7 @@ function* deleteTaskApiAction(action) {
 
 function* doneTaskApiAction(action) {
 	try {
-		yield call(TodoListService.doneTaskApi, action.taskName)
+		yield call(todoListApi.doneTaskApi, action.taskName)
 
 		yield put({
 			type: GET_TASK_LIST_SAGA,
@@ -72,7 +72,7 @@ function* doneTaskApiAction(action) {
 
 function* rejectTaskApiAction(action) {
 	try {
-		yield call(TodoListService.rejectTaskApi, action.taskName)
+		yield call(todoListApi.rejectTaskApi, action.taskName)
 
 		yield put({
 			type: GET_TASK_LIST_SAGA,
